@@ -15,7 +15,7 @@ W = tf.Variable(tf.zeros([784, 10]))
 y_true = tf.placeholder(tf.float32, [None, 10])
 y_pred = tf.matmul(x, W)
 
-cross_entropy = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(y_pred, y_true))
+cross_entropy = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=y_pred, labels=y_true))
 
 gd_step = tf.train.GradientDescentOptimizer(0.5).minimize(cross_entropy)
 
