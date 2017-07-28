@@ -160,5 +160,4 @@ with tf.Session() as sess:
                                              y: test_label})
     print ("Test Accuracy:", test_acc)
     
-#tensorboard --logdir C:\Users\tomhope\Dropbox\TF\logs\RNN_with_summaries
-#tensorboard --logdir=LOG_DIR
+
