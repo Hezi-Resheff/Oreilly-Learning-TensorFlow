@@ -150,4 +150,3 @@ for f in ff:
     print(index2word_map[f])
     print(cosine_dists[f])
     
-#tensorboard --logdir=C:\Users\tomhope\Dropbox\TF\logs\word2vec_intro 
