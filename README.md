@@ -13,7 +13,7 @@
 10. Exporting and Serving Models with TensorFlow.
 
 
-Check out the associated [slides](https://github.com/Hezi-Resheff/Oreilly-OSCON2017-Learning-TensorFlow) from our [OSCON2017](https://conferences.oreilly.com/oscon/oscon-tx) [training](https://conferences.oreilly.com/oscon/oscon-tx/public/schedule/detail/57856). 
+Check out the associated [repo](https://github.com/Hezi-Resheff/Oreilly-OSCON2017-Learning-TensorFlow) from our [OSCON2017](https://conferences.oreilly.com/oscon/oscon-tx) [training](https://conferences.oreilly.com/oscon/oscon-tx/public/schedule/detail/57856). 
 
 ---
 If you like the book, please rate it on Amazon :) 
