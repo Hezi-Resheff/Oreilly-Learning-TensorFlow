@@ -149,7 +149,7 @@ def build_second_net():
     conv3_flat = tf.reshape(conv3_pool, [-1, C3])
     conv3_drop = tf.nn.dropout(conv3_flat, keep_prob=keep_prob)
 
-    full1 = tf.nn.relu(full_layer(conv3_flat, F1))
+    full1 = tf.nn.relu(full_layer(conv3_drop, F1))
     full1_drop = tf.nn.dropout(full1, keep_prob=keep_prob)
 
     y_conv = full_layer(full1_drop, 10)
