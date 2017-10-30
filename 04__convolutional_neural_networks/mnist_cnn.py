@@ -2,11 +2,12 @@ from tensorflow.examples.tutorials.mnist import input_data
 import tensorflow as tf
 import numpy as np
 
+from layers import conv_layer, max_pool_2x2, full_layer
+
 DATA_DIR = '/tmp/data'
 MINIBATCH_SIZE = 50
 STEPS = 5000
 
-from layers import *
 
 mnist = input_data.read_data_sets(DATA_DIR, one_hot=True)
 
@@ -48,6 +49,7 @@ with tf.Session() as sess:
 
     X = mnist.test.images.reshape(10, 1000, 784)
     Y = mnist.test.labels.reshape(10, 1000, 10)
-    test_accuracy = np.mean([sess.run(accuracy, feed_dict={x:X[i], y_:Y[i], keep_prob:1.0}) for i in range(10)])
+    test_accuracy = np.mean(
+        [sess.run(accuracy, feed_dict={x: X[i], y_: Y[i], keep_prob: 1.0}) for i in range(10)])
 
 print("test accuracy: {}".format(test_accuracy))

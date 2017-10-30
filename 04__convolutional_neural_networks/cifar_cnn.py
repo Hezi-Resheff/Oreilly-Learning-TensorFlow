@@ -51,7 +51,7 @@ class CifarLoader(object):
         images = np.vstack([d["data"] for d in data])
         n = len(images)
         self.images = images.reshape(n, 3, 32, 32).transpose(0, 2, 3, 1)\
-                          .astype(float) / 255
+            .astype(float) / 255
         self.labels = one_hot(np.hstack([d["labels"] for d in data]), 10)
         return self
 
@@ -65,6 +65,7 @@ class CifarLoader(object):
         n = len(self.images)
         ix = np.random.choice(n, batch_size)
         return self.images[ix], self.labels[ix]
+
 
 class CifarDataManager(object):
     def __init__(self):
@@ -91,12 +92,13 @@ def run_simple_net():
     conv3_flat = tf.reshape(conv3_pool, [-1, 4 * 4 * 128])
     conv3_drop = tf.nn.dropout(conv3_flat, keep_prob=keep_prob)
 
-    full_1 = tf.nn.relu(full_layer(conv3_drop, 512))
+    full_1 = tf.nn.relu(full_layer(conv3_flat, 512))
     full1_drop = tf.nn.dropout(full_1, keep_prob=keep_prob)
 
     y_conv = full_layer(full1_drop, 10)
 
-    cross_entropy = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=y_conv, labels=y_))
+    cross_entropy = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=y_conv,
+                                                                           labels=y_))
     train_step = tf.train.AdamOptimizer(1e-3).minimize(cross_entropy)
 
     correct_prediction = tf.equal(tf.argmax(y_conv, 1), tf.argmax(y_, 1))
@@ -149,16 +151,17 @@ def build_second_net():
     conv3_flat = tf.reshape(conv3_pool, [-1, C3])
     conv3_drop = tf.nn.dropout(conv3_flat, keep_prob=keep_prob)
 
-    full1 = tf.nn.relu(full_layer(conv3_flat, F1))
+    full1 = tf.nn.relu(full_layer(conv3_drop, F1))
     full1_drop = tf.nn.dropout(full1, keep_prob=keep_prob)
 
     y_conv = full_layer(full1_drop, 10)
 
-    cross_entropy = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=y_conv, labels=y_))
-    train_step = tf.train.AdamOptimizer(5e-4).minimize(cross_entropy)
+    cross_entropy = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=y_conv,
+                                                                           labels=y_))
+    train_step = tf.train.AdamOptimizer(5e-4).minimize(cross_entropy)  # noqa
 
     correct_prediction = tf.equal(tf.argmax(y_conv, 1), tf.argmax(y_, 1))
-    accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
+    accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))  # noqa
 
     # Plug this into the test procedure as above to continue...
 
