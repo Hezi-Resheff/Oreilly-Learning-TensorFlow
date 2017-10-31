@@ -7,4 +7,3 @@ subprocess.Popen('python distribute.py --job_name="worker" --task_index=1',
                  shell=True)
 subprocess.Popen('python distribute.py --job_name="worker" --task_index=2',
                  shell=True)
-

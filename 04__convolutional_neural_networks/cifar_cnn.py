@@ -92,7 +92,7 @@ def run_simple_net():
     conv3_flat = tf.reshape(conv3_pool, [-1, 4 * 4 * 128])
     conv3_drop = tf.nn.dropout(conv3_flat, keep_prob=keep_prob)
 
-    full_1 = tf.nn.relu(full_layer(conv3_flat, 512))
+    full_1 = tf.nn.relu(full_layer(conv3_drop, 512))
     full1_drop = tf.nn.dropout(full_1, keep_prob=keep_prob)
 
     y_conv = full_layer(full1_drop, 10)
