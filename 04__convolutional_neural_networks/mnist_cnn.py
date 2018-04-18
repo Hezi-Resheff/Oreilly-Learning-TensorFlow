@@ -1,10 +1,11 @@
 from tensorflow.examples.tutorials.mnist import input_data
 import tensorflow as tf
 import numpy as np
+import os
 
 from layers import conv_layer, max_pool_2x2, full_layer
 
-DATA_DIR = '/tmp/data'
+DATA_DIR = os.path.join(os.path.sep, 'tmp', 'data')
 MINIBATCH_SIZE = 50
 STEPS = 5000
 

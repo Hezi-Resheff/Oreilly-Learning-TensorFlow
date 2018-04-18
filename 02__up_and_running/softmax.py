@@ -1,8 +1,9 @@
+import os
 import tensorflow as tf
 from tensorflow.examples.tutorials.mnist import input_data
 
 
-DATA_DIR = '/tmp/data'
+DATA_DIR = os.path.join(os.path.sep, 'tmp', 'data')
 NUM_STEPS = 1000
 MINIBATCH_SIZE = 100
 
