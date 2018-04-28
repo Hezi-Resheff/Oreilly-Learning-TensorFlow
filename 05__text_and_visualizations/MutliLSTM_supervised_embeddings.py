@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Thu Dec 29 00:39:23 2016
-
-@author: tomhope
-"""
-
 import numpy as np
 import tensorflow as tf
 
@@ -14,6 +7,7 @@ num_classes = 2
 hidden_layer_size = 32
 times_steps = 6
 element_size = 1
+num_LSTM_layers = 2
 
 digit_to_word_map = {1: "One", 2: "Two", 3: "Three", 4: "Four", 5: "Five",
                      6: "Six", 7: "Seven", 8: "Eight", 9: "Nine"}
@@ -100,11 +94,14 @@ with tf.name_scope("embeddings"):
 
 
 with tf.variable_scope("lstm"):
-
-    lstm_cell = tf.contrib.rnn.BasicLSTMCell(hidden_layer_size,
+    def lstm_cell():
+        return tf.contrib.rnn.BasicLSTMCell(hidden_layer_size,
                                              forget_bias=1.0)
-    outputs, states = tf.nn.dynamic_rnn(lstm_cell, embed,
-                                        sequence_length=_seqlens,
+
+    cell = tf.contrib.rnn.MultiRNNCell(cells=[lstm_cell() for _ in range(num_LSTM_layers)],
+                                       state_is_tuple=True)
+    outputs, states = tf.nn.dynamic_rnn(cell, embed,
+                                        sequence_length = _seqlens,
                                         dtype=tf.float32)
 
 weights = {
@@ -116,7 +113,7 @@ biases = {
 }
 
 # extract the last relevant output and use in a linear layer
-final_output = tf.matmul(states[1],
+final_output = tf.matmul(states[num_LSTM_layers-1][1],
                          weights["linear_layer"]) + biases["linear_layer"]
 
 softmax = tf.nn.softmax_cross_entropy_with_logits(logits=final_output,
@@ -161,4 +158,3 @@ with tf.Session() as sess:
     states_example = sess.run([states[1]], feed_dict={_inputs: x_test,
                                                       _labels: y_test,
                                                       _seqlens: seqlen_test})
-
