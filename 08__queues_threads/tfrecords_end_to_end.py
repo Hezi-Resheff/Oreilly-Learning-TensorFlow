@@ -94,6 +94,7 @@ sess.run(init)
 
 # coordinator
 coord = tf.train.Coordinator()
+threads = tf.train.start_queue_runners(sess=sess,coord=coord)
 try:
     step = 0
     while not coord.should_stop():
@@ -109,6 +110,9 @@ finally:
     # When done, ask the threads to stop.
     coord.request_stop()
 
+# Wait for threads to finish
+coord.join(threads)
+sess.close()
 
 # example -- get image,label
 img1, lbl1 = sess.run([image, label])
