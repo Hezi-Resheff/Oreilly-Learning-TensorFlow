@@ -37,13 +37,18 @@ x.eval()
 x.eval()
 x.eval()
 
-# Hangs forever if queue empty if running INTERACTIVELY
 
-# for dequeue many, need to specify shapes in advance...
 queue1 = tf.FIFOQueue(capacity=10, dtypes=[tf.string], shapes=[()])
-# ....
-inputs = queue1.dequeue_many(4)
+enque_op = queue1.enqueue(["F"])
+enque_op.run()
+enque_op = queue1.enqueue(["I"])
+enque_op.run()
+enque_op = queue1.enqueue(["F"])
+enque_op.run()
+enque_op = queue1.enqueue(["O"])
+enque_op.run()
 
+inputs = queue1.dequeue_many(4)
 inputs.eval()
 
 

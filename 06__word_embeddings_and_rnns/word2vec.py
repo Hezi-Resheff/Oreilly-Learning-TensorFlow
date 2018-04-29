@@ -101,7 +101,7 @@ learningRate = tf.train.exponential_decay(learning_rate=0.1,
                                           decay_steps=1000,
                                           decay_rate=0.95,
                                           staircase=True)
-train_step = tf.train.GradientDescentOptimizer(learningRate).minimize(loss)
+train_step = tf.train.GradientDescentOptimizer(learningRate).minimize(loss, global_step=global_step)
 merged = tf.summary.merge_all()
 
 with tf.Session() as sess:
